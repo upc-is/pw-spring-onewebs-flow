@@ -13,6 +13,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -27,20 +32,26 @@ public class Multa {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@NotNull(message = "La multa require un detenido, por favor especifique el Detenido")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "detenido_id")
 	private Detenido detenido;
 	
+	@Past(message = "Debe ser una fecha pasada")
 	@Column(name = "fecha_detencion", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaDetencion;
 	
+	@NotBlank(message = "Coloque dirección")
 	@Column(name = "direccion", length = 40, nullable = false)
 	private String direccion;
 	
+	@NotBlank(message = "Coloque infracción")
 	@Column(name = "infraccion", length = 10, nullable = false)
 	private String infraccion;
 	
+	@Min(value = 98, message = "El valor ingresado no es valido")
+	@Max(value = 600, message = "El valor ingresado no es valido")
 	@Column(name = "monto", nullable = false )
 	private double monto;
 	
