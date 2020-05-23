@@ -1,15 +1,11 @@
-package pe.edu.upc.onewebs.model.repository;
+package pe.edu.upc.onewebs.service;
 
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import pe.edu.upc.onewebs.model.entity.Detenido;
 
-@Repository
-public interface DetenidoRepository extends JpaRepository<Detenido, Integer> {
+public interface DetenidoService extends CrudService<Detenido, Integer> {
 	Optional<Detenido> findByDni(String dni) throws Exception;
 	List<Detenido> findByApellidos( String apellidos ) throws Exception;
 	List<Detenido> findByNombres( String nombres ) throws Exception;
