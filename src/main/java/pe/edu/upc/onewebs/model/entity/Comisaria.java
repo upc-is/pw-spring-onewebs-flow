@@ -46,7 +46,7 @@ public class Comisaria {
 	public void addDetenido(Detenido detenido) {
 		detenidos.add(detenido);
 	}
-	
+
 }
 
 
