@@ -26,8 +26,8 @@
 		      
 		    </tr>
 		  </thead>
-		  <tbody th:each="detenido: ${detenidos}">
-		    <tr>
+		  <tbody>
+		    <tr th:each="detenido: ${detenidos}">
 		      <th scope="row" th:text="${detenido.id}">1</th>
 		      <td th:text="${detenido.dni}">.</td>
 		      <td th:text="${detenido.apellidos}">.</td>
