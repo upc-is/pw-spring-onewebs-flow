@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace = "layout/layout :: head">
+</head>
+<body>
+<header th:replace="layout/layout :: header"></header>
+
+<main role="main">
+<section class="container">
+
+	<div class="card text-center">
+	  <div class="card-header">
+	    Detainee
+	  </div>
+	  <div class="card-body">
+		
+		<table class="table table-hover">
+		  <thead>
+		    <tr>
+		      <th scope="col">#</th>
+		      <th scope="col">Dni</th>
+		      <th scope="col">Apellidos</th>
+		      <th scope="col">Nombres</th>
+		      <th scope="col">Fecha nacimiento</th>
+		      <th scope="col">Distrito</th>
+		      
+		    </tr>
+		  </thead>
+		  <tbody th:each="detenido: ${detenidos}">
+		    <tr>
+		      <th scope="row" th:text="${detenido.id}">1</th>
+		      <td th:text="${detenido.dni}">.</td>
+		      <td th:text="${detenido.apellidos}">.</td>
+		      <td th:text="${detenido.nombres}">.</td>
+		      <td th:text="${detenido.fechaNacimiento}">.</td>
+		      <td th:text="${detenido.distrito}">.</td>		      
+		    </tr>
+		  </tbody>
+		</table>
+	
+	  </div>
+	  <div class="card-footer text-muted">
+	    
+	  </div>
+	</div>
+	
+	
+	
+	
+
+</section>
+</main>		
+ 		
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

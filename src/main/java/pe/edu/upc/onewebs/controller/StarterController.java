@@ -10,6 +10,6 @@ public class StarterController {
 
 	@GetMapping
 	public String starter() {
-		return "starter";
+		return "index";
 	}
 }
