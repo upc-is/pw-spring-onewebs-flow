@@ -27,8 +27,6 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "detenidos")
-@Getter
-@Setter
 public class Detenido {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,13 +55,13 @@ public class Detenido {
 	
 	// mappedBy: El objeto de relaci�n
 	// fetch: 
-	@NotEmpty(message = "Un detenido debe tener un multa")
+	//@NotEmpty(message = "Un detenido debe tener un multa")
 	@OneToMany(mappedBy = "detenido", fetch = FetchType.LAZY)
 	private List<Multa> multas;
 	
 	// joinColumns: Son los atributos de la clase Origen (actual)
 	// inverseJoinColumns: Son los atributos de la clase Destino (a relacionarme)
-	@NotEmpty(message = "Por favor, especifique la comisaria")
+	//@NotEmpty(message = "Por favor, especifique la comisaria")
 	@ManyToMany
 	@JoinTable(name = "detenido_comisaria", 
 		joinColumns = { @JoinColumn(name = "detenido_id", referencedColumnName = "id") },
@@ -80,5 +78,55 @@ public class Detenido {
 	public void addMulta(Multa multa) {
 		multas.add(multa);
 	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getDni() {
+		return dni;
+	}
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+	public String getApellidos() {
+		return apellidos;
+	}
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
+	public String getNombres() {
+		return nombres;
+	}
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
+	}
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+	public String getDistrito() {
+		return distrito;
+	}
+	public void setDistrito(String distrito) {
+		this.distrito = distrito;
+	}
+	public List<Multa> getMultas() {
+		return multas;
+	}
+	public void setMultas(List<Multa> multas) {
+		this.multas = multas;
+	}
+	public List<Comisaria> getComisarias() {
+		return comisarias;
+	}
+	public void setComisarias(List<Comisaria> comisarias) {
+		this.comisarias = comisarias;
+	}
+	
+	
 }
 
