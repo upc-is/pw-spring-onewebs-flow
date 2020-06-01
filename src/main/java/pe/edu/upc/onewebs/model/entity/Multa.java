@@ -19,6 +19,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -40,6 +42,7 @@ public class Multa {
 	@Past(message = "Debe ser una fecha pasada")
 	@Column(name = "fecha_detencion", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date fechaDetencion;
 	
 	@NotBlank(message = "Coloque dirección")

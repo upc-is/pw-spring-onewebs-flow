@@ -22,6 +22,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -45,8 +47,9 @@ public class Detenido {
 	private String nombres;
 	
 	@Past(message = "La fecha de nacimiento debe ser una fecha pasada")
-	@Column(name = "fecha_nacimiento", nullable = false)
+	@Column(name = "fecha_nacimiento", nullable = false)	
 	@Temporal(value = TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date fechaNacimiento;
 	
 	@NotBlank(message = "Por favor, ingrese el distrito")
