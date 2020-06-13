@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -17,6 +18,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private UsuarioDetailsService usuarioDetailsService;
+	
+	@Autowired
+	private LoggingAccessDeniedHandler loggingAccessDeniedHandler;
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -26,7 +30,36 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// TODO Auto-generated method stub
-		super.configure(http);
+		//super.configure(http);
+		http
+			.authorizeRequests()
+				.antMatchers("/onewebs/index.html").permitAll()
+				.antMatchers("/onewebs/policestations").hasRole("COMMANDER")
+				.antMatchers("/onewebs/detainee").hasAnyRole("POLICE", "COMMISSAR")
+				.antMatchers("/onewebs/detainee/edit/**").hasAuthority("ACCESS_EDITDETAINEE")
+				.antMatchers("/onewebs/detainee/new").hasAuthority("ACCESS_ADDDETAINEE")
+				.antMatchers("/onewebs/detainee/del/**").hasAuthority("ACCESS_DELDETAINEE")
+				.antMatchers("/onewebs/mulcts").authenticated()
+			.and()
+			.formLogin()
+				.loginProcessingUrl("/signin")
+				.loginPage("/onewebs/login")
+				.usernameParameter("inputUsername")
+				.passwordParameter("inputPassword")
+			.and()
+			.logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+				.logoutSuccessUrl("/onewebs")
+			.and()
+			.rememberMe()
+				.tokenValiditySeconds(2592000)
+				.key("Cl4v3.")
+				.rememberMeParameter("checkRememberMe")
+				.userDetailsService(usuarioDetailsService)
+			.and()
+				.exceptionHandling()
+				.accessDeniedHandler(loggingAccessDeniedHandler);
+
 	}
 	
 	@Bean
