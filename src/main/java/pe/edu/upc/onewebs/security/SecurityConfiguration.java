@@ -30,7 +30,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// TODO Auto-generated method stub
-		//super.configure(http);
+		//super.configure(http); probando.
 		http
 			.authorizeRequests()
 				.antMatchers("/onewebs/index.html").permitAll()
