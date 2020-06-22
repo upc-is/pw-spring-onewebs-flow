@@ -39,6 +39,7 @@
 		  <span class="navbar-text">
 		  	<ul class="navbar-nav">
 		      <li  sec:authorize="isAnonymous()"  class="nav-item">
+			     <a class="btn btn-outline-warning"th:href="@{/onewebs/signup}" aria-disabled="true">Registrarse</a>
 			     <a class="btn btn-success"th:href="@{/onewebs/login}" aria-disabled="true">Iniciar Sesión</a>
 		      </li>
 		      <li sec:authorize="isAuthenticated()" class="nav-item">
