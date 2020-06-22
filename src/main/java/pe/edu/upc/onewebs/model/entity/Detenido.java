@@ -24,6 +24,8 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -59,12 +61,14 @@ public class Detenido {
 	// mappedBy: El objeto de relaci�n
 	// fetch: 
 	//@NotEmpty(message = "Un detenido debe tener un multa")
+	@JsonIgnoreProperties("detenido")
 	@OneToMany(mappedBy = "detenido", fetch = FetchType.LAZY)
 	private List<Multa> multas;
 	
 	// joinColumns: Son los atributos de la clase Origen (actual)
 	// inverseJoinColumns: Son los atributos de la clase Destino (a relacionarme)
 	//@NotEmpty(message = "Por favor, especifique la comisaria")
+	@JsonIgnoreProperties("detenidos")
 	@ManyToMany
 	@JoinTable(name = "detenido_comisaria", 
 		joinColumns = { @JoinColumn(name = "detenido_id", referencedColumnName = "id") },
