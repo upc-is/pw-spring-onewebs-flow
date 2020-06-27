@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -56,15 +58,29 @@ public class MultaController {
 		return "/multa/nuevo";
 	}
 	@PostMapping("/save")
-	public String save(@ModelAttribute("multa") Multa multa, Model model, SessionStatus status) {
-		try {
-			multaService.create(multa);
-			status.setComplete();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
-		return "redirect:/onewebs/mulcts";
+	public String save(@Validated @ModelAttribute("multa") Multa multa, BindingResult result, 
+			Model model, SessionStatus status) {
+		if( result.hasErrors() ) {
+			try {
+				List<Detenido> detenidos = detenidoService.readAll();
+				model.addAttribute("detenidos", detenidos);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			return "/multa/nuevo";
+		} 
+		else {
+			try {
+				multaService.create(multa);
+				status.setComplete();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		
+			return "redirect:/onewebs/mulcts";
+		}
+		
 	}
 	@GetMapping("/edit/{id}")
 	public String edit(@PathVariable("id") Integer id,  Model model) {

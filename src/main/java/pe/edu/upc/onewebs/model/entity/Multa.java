@@ -57,8 +57,8 @@ public class Multa {
 	@Column(name = "infraccion", length = 10, nullable = false)
 	private String infraccion;
 	
-	@Min(value = 98, message = "El valor ingresado no es valido")
-	@Max(value = 600, message = "El valor ingresado no es valido")
+	@Min(value = 98, message = "El valor ingresado no debe ser menos a 98")
+	@Max(value = 600, message = "El valor ingresado no debe ser mayor a 600")
 	@Column(name = "monto", nullable = false )
 	private double monto;
 	
