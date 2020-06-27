@@ -21,6 +21,9 @@ import javax.validation.constraints.Past;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,6 +37,7 @@ public class Multa {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@JsonIgnoreProperties(value = "multas")
 	@NotNull(message = "La multa require un detenido, por favor especifique el Detenido")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "detenido_id")
