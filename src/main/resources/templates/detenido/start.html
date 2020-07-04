@@ -11,7 +11,20 @@
 		<div class="card text-center">
 			<div class="card-header">Detainee</div>
 			<div class="card-body">
-
+				<p th:text="${mensajeOK}" class="bg-success text-white"></p>
+				<p th:text="${mensajeError}" class="bg-danger text-white"></p>
+				
+				
+				<form th:action="@{/onewebs/detainee/search}" method="post" th:object="${detenido}" class="form-inline">
+					<div class="form-group">
+				      <label for="apellidos">Apellidos : </label>
+				      <input type="text" class="form-control" th:field="*{apellidos}" placeholder="Ingrese el apellidos a buscar">
+				      <button type="submit" class="btn btn-success"><i class="fas fa-search"></i> Buscar </button>
+				    </div>				
+				</form>
+				
+				<hr>
+			
 				<table class="table table-hover">
 					<thead>
 						<tr>

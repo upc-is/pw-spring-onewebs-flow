@@ -77,4 +77,9 @@ public class DetenidoServiceImpl implements DetenidoService {
 		return detenidoRepository.findByDistrito(distrito);
 	}
 
+	@Override
+	public List<Detenido> fetchByApellidos(String apellidos) throws Exception {
+		return detenidoRepository.fetchByApellidos(apellidos);
+	}
+
 }

@@ -30,7 +30,15 @@ public class DetenidoController {
 	@GetMapping
 	public String start(Model model) {		
 		try {
-			List<Detenido> detenidos = detenidoService.readAll();
+			// Objeto detenido utilizado para la busqueda
+			Detenido detenido = new Detenido();
+			// Activar en el caso de que salga error por los Validations
+			/*detenido.setDni("99999999");
+			detenido.setNombres("nombres");
+			detenido.setDistrito("distrito");*/
+			model.addAttribute("detenido", detenido);
+			
+			List<Detenido> detenidos = detenidoService.readAll();			
 			model.addAttribute("detenidos", detenidos);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -86,6 +94,24 @@ public class DetenidoController {
 			e.printStackTrace();
 		}
 		return "redirect:/onewebs/detainee";
+	}
+	
+	@PostMapping("/search")
+	public String search(@ModelAttribute("detenido") Detenido detenido, Model model) {
+		try {
+			List<Detenido> detenidos = detenidoService.fetchByApellidos( detenido.getApellidos() );
+			model.addAttribute("detenidos", detenidos);			
+			model.addAttribute("detenido", detenido);
+			// Mensajes
+			if (detenidos.size() > 0) {
+				model.addAttribute("mensajeOK", "Se encontraron: " + detenidos.size() + " detenidos");
+			} else {
+				model.addAttribute("mensajeError", "No se encontro ningún detenido");
+			}
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}		
+		return "/detenido/start";
 	}
 	
 	

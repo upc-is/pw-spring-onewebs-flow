@@ -10,4 +10,5 @@ public interface DetenidoService extends CrudService<Detenido, Integer> {
 	List<Detenido> findByApellidos( String apellidos ) throws Exception;
 	List<Detenido> findByNombres( String nombres ) throws Exception;
 	List<Detenido> findByDistrito( String distrito ) throws Exception;
+	List<Detenido> fetchByApellidos( String apellidos ) throws Exception;
 }
